@@ -1,0 +1,6 @@
+{
+  "name": "Sera Deal BD",
+  "description": "Sera Deal BD is a highly professional, dynamic E-commerce application featuring a category-wise catalog, interactive product sliders, secure checkout, order tracking, and a robust WordPress-like admin panel for complete control over styling, branding, and layouts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

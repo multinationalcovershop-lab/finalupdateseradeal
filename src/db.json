@@ -1,0 +1,196 @@
+{
+  "settings": {
+    "companyName": "Sera Deal BD",
+    "logoUrl": "",
+    "logoText": "Sera Deal BD",
+    "contactPhone": "+8801712345678",
+    "contactEmail": "info@seradealbd.com",
+    "bkashNumber": "01712345678",
+    "nagadNumber": "01912345678",
+    "categories": [
+      "Electronics",
+      "Fashion",
+      "Groceries",
+      "Accessories"
+    ],
+    "headerLinks": [
+      { "id": "h1", "text": "Home", "url": "/" },
+      { "id": "h2", "text": "Flash Sale", "url": "/#flash-sale" },
+      { "id": "h3", "text": "About Us", "url": "/pages/about-us" },
+      { "id": "h4", "text": "Contact Us", "url": "/pages/contact-us" }
+    ],
+    "footerLinks": [
+      { "id": "f1", "text": "Privacy Policy", "url": "/pages/privacy-policy" },
+      { "id": "f2", "text": "Terms & Conditions", "url": "/pages/terms" },
+      { "id": "f3", "text": "Tracking Help", "url": "/tracking" }
+    ],
+    "sliders": [
+      {
+        "id": "s1",
+        "title": "Sera Deal Premium Electronics Fest",
+        "subtitle": "Up to 40% Off on Smartphones & Smartwatches",
+        "imageUrl": "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?auto=format&fit=crop&w=1200&q=80",
+        "linkUrl": "/#Electronics"
+      },
+      {
+        "id": "s2",
+        "title": "Summer Fashion Collection 2026",
+        "subtitle": "Grab elegant clothing & shoe designs starting from ৳499",
+        "imageUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80",
+        "linkUrl": "/#Fashion"
+      },
+      {
+        "id": "s3",
+        "title": "Fresh Daily Grocery Essentials",
+        "subtitle": "Delivered straight to your doorstep - organic & fresh",
+        "imageUrl": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+        "linkUrl": "/#Groceries"
+      }
+    ],
+    "banners": [
+      {
+        "id": "b1",
+        "title": "Top Tech Gadgets Banner",
+        "imageUrl": "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=800&q=80",
+        "linkUrl": "/#Electronics"
+      },
+      {
+        "id": "b2",
+        "title": "Modern Wardrobe Trend",
+        "imageUrl": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
+        "linkUrl": "/#Fashion"
+      }
+    ]
+  },
+  "products": [
+    {
+      "id": "p1",
+      "title": "iPhone 15 Pro Max (256GB)",
+      "description": "Experience the titanium design, groundbreaking performance, and raw processing power with iPhone 15 Pro Max. Features a stellar 48MP main camera and 120Hz Super Retina XDR display.",
+      "images": [
+        "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=500&q=80"
+      ],
+      "price": 145000,
+      "salePrice": 139000,
+      "categories": [
+        "Electronics"
+      ],
+      "stock": 12,
+      "isFlashSale": false,
+      "discountRate": 4
+    },
+    {
+      "id": "p2",
+      "title": "Amoled Smart Sports Watch Series 9",
+      "description": "Ultimate sports tracking smartwatch with real-time heart rate monitoring, sleep analysis, AMOLED vibrant full screen, and a durable silicon strap. Water-resistant and 14 days long battery backup.",
+      "images": [
+        "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=500&q=80"
+      ],
+      "price": 4500,
+      "salePrice": 3200,
+      "categories": [
+        "Electronics",
+        "Accessories"
+      ],
+      "stock": 45,
+      "isFlashSale": true,
+      "discountRate": 28
+    },
+    {
+      "id": "p3",
+      "title": "Premium Vintage Leather Jacket",
+      "description": "Crafted from 100% genuine vintage leather, this jacket provides unmatched styling, comfort, and weather protection. Fitted design with metallic zippers and side pockets.",
+      "images": [
+        "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=500&q=80"
+      ],
+      "price": 8500,
+      "salePrice": 5500,
+      "categories": [
+        "Fashion"
+      ],
+      "stock": 8,
+      "isFlashSale": true,
+      "discountRate": 35
+    },
+    {
+      "id": "p4",
+      "title": "Zari Work Royal Silk Shari",
+      "description": "Beautiful traditional Royal Silk Shari with exquisite Zari work, perfect for cultural occasions and elegant festive wear. Made with finest threads.",
+      "images": [
+        "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=500&q=80"
+      ],
+      "price": 12000,
+      "salePrice": 9500,
+      "categories": [
+        "Fashion"
+      ],
+      "stock": 15,
+      "isFlashSale": false,
+      "discountRate": 20
+    },
+    {
+      "id": "p5",
+      "title": "Organic Premium Wild Honey 500g",
+      "description": "100% organic, pure, unfiltered, and raw honey harvested directly from the natural deep sundarban reserve forests. Excellent health booster.",
+      "images": [
+        "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=500&q=80"
+      ],
+      "price": 1200,
+      "salePrice": 850,
+      "categories": [
+        "Groceries"
+      ],
+      "stock": 60,
+      "isFlashSale": true,
+      "discountRate": 29
+    },
+    {
+      "id": "p6",
+      "title": "Royal Premium Basmati Rice 5kg",
+      "description": "Extra-long grain, fully aged basmati rice with irresistible aroma. Specially sorted and processed for zero impurities, perfect for Biryani and Pulao.",
+      "images": [
+        "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=80"
+      ],
+      "price": 950,
+      "salePrice": 820,
+      "categories": [
+        "Groceries"
+      ],
+      "stock": 100,
+      "isFlashSale": false,
+      "discountRate": 13
+    }
+  ],
+  "pages": [
+    {
+      "id": "about-us",
+      "title": "About Us",
+      "slug": "about-us",
+      "content": "<h2>Sera Deal BD - Your Ultimate E-Commerce Companion</h2><p>Sera Deal BD is Bangladesh's pioneering online marketplace, dedicated to providing high-quality, authentic products at unbeatable prices directly to your doorstep. We strive to bring the convenience of digital shopping of categories ranging from modern consumer electronics, gorgeous fashion clothing collections, to fresh and organic daily groceries.</p><p>We have introduced real-time order tracking, reliable home delivery, secure cash-on-delivery, and popular cellular financial platforms (bKash/Nagad) to make your shopping experience simple, satisfying, and trustworthy.</p><h3>Contact and Corporate Details</h3><p>Office Address: Level 12, Sera Tower, Dhaka, Bangladesh.</p><p>Customer Support Helpline: +8801712345678</p>",
+      "isSystem": true
+    },
+    {
+      "id": "privacy-policy",
+      "title": "Privacy Policy",
+      "slug": "privacy-policy",
+      "content": "<h2>Privacy & Protection Policy</h2><p>At Sera Deal BD, we operate under a strict code of user privacy protection. We gather customer information such as email addresses, contact telephone numbers, and delivery physical addresses safely to ship orders and verify transactions seamlessly.</p><p>Under no circumstances do we share or leak your personal data to any external marketing agencies. We use cookies purely for tracking shopping carts and ensuring system sessions stay active securely.</p>",
+      "isSystem": true
+    },
+    {
+      "id": "contact-us",
+      "title": "Contact Us",
+      "slug": "contact-us",
+      "content": "<h2>Contact Sera Deal BD Support</h2><p>We are here for you 24/7. Get in touch with us using any of the quick channels below:</p><ul><li><strong>Support Email Support:</strong> support@seradealbd.com</li><li><strong>Customer Service Hotline:</strong> +8801712345678 (Toll-Free)</li><li><strong>Corporate Headquarters:</strong> Level 12, Sera Tower, Dhaka, Bangladesh.</li><li><strong>Facebook Page:</strong> facebook.com/SeraDealBD</li></ul><p>Feel free to open an order tracking ticket on our website or visit our head office for corporate inquiries.</p>",
+      "isSystem": true
+    },
+    {
+      "id": "terms",
+      "title": "Terms & Conditions",
+      "slug": "terms",
+      "content": "<h2>Sera Deal BD Terms and Conditions</h2><p>Welcome to Sera Deal BD. By accessing or shopping on our platform, you accept the following user terms:</p><ul><li>All payments for cash on delivery must be made immediately on receiving physical parcels.</li><li>Products under electronics catalog cover original manufacturer brand warranties unless stated.</li><li>Return requests must be initiated through our hotlines within 3 business days of package dispatch.</li></ul>",
+      "isSystem": true
+    }
+  ],
+  "orders": []
+}
