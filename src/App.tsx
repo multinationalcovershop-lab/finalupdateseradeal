@@ -100,31 +100,27 @@ export default function App() {
         throw new Error("Invalid or empty server database schema");
       }
 
-      // If the user has not edited anything locally, initialize from server data
-      if (!localSettings) {
-        setSettings(data.settings);
-        setProducts(data.products || []);
-        setPages(data.pages || []);
-        setOrders(data.orders || []);
-        
-        localStorage.setItem("sera_db_settings", JSON.stringify(data.settings));
-        localStorage.setItem("sera_db_products", JSON.stringify(data.products || []));
-        localStorage.setItem("sera_db_pages", JSON.stringify(data.pages || []));
-        localStorage.setItem("sera_db_orders", JSON.stringify(data.orders || []));
-      } else {
-        // Sync order histories from server since customer orders are dispatched from server-side
-        if (data.orders && data.orders.length > 0) {
-          const mergedOrders = [...data.orders];
-          const localOrds = JSON.parse(localOrders || "[]");
-          localOrds.forEach((o: any) => {
-            if (!mergedOrders.some((mo) => mo.id === o.id)) {
-              mergedOrders.push(o);
-            }
-          });
-          setOrders(mergedOrders);
-          localStorage.setItem("sera_db_orders", JSON.stringify(mergedOrders));
+      // Always synchronize state and offline cache with latest data from the server (Server database is source of truth)
+      setSettings(data.settings);
+      setProducts(data.products || []);
+      setPages(data.pages || []);
+      
+      localStorage.setItem("sera_db_settings", JSON.stringify(data.settings));
+      localStorage.setItem("sera_db_products", JSON.stringify(data.products || []));
+      localStorage.setItem("sera_db_pages", JSON.stringify(data.pages || []));
+
+      // For orders, merge server orders with any potential offline-placed local orders
+      const serverOrders = data.orders || [];
+      const localOrds = JSON.parse(localOrders || "[]");
+      const mergedOrders = [...serverOrders];
+      localOrds.forEach((o: any) => {
+        if (!mergedOrders.some((mo) => mo.id === o.id)) {
+          mergedOrders.push(o);
         }
-      }
+      });
+      setOrders(mergedOrders);
+      localStorage.setItem("sera_db_orders", JSON.stringify(mergedOrders));
+
       setLoading(false);
     } catch (err) {
       console.warn("Express server unreachable, using high-reliability offline client-side fallback database:", err);
@@ -975,22 +971,6 @@ export default function App() {
                         প্রবেশ করুন (Secure Login)
                       </button>
                     </form>
-
-                    <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const fallbackToken = "sera-deal-admin-jwt-mocked-token-2026";
-                          localStorage.setItem("sera_deal_token", fallbackToken);
-                          setAdminToken(fallbackToken);
-                          setAdminUsername("");
-                          setAdminPassword("");
-                        }}
-                        className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs py-2.5 px-3 rounded-xl transition text-center"
-                      >
-                        ⚡ এক-ক্লিকে সরাসরি প্রবেশ করুন (Quick Login Bypass)
-                      </button>
-                    </div>
                   </div>
                 </div>
               ) : (

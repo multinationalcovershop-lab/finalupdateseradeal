@@ -69,9 +69,11 @@ export default function AdminPanel({
   const [bNo, setBNo] = useState(settings.bkashNumber);
   const [nNo, setNNo] = useState(settings.nagadNumber);
 
-  // Sync internal state with props dynamically when settings fetch is updated
+  const [loadedSettings, setLoadedSettings] = useState<AppSettings | null>(null);
+
+  // Sync internal state with props dynamically only when a brand new actual reference changes (e.g. on load or save success)
   useEffect(() => {
-    if (settings) {
+    if (settings && settings !== loadedSettings) {
       setCompName(settings.companyName || "");
       setLgUrl(settings.logoUrl || "");
       setLgText(settings.logoText || "");
@@ -79,8 +81,9 @@ export default function AdminPanel({
       setEml(settings.contactEmail || "");
       setBNo(settings.bkashNumber || "");
       setNNo(settings.nagadNumber || "");
+      setLoadedSettings(settings);
     }
-  }, [settings]);
+  }, [settings, loadedSettings]);
 
   // WordPress Page Form State
   const [pageTitle, setPageTitle] = useState("");
