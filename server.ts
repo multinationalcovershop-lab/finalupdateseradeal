@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import fs from "fs";
 import crypto from "crypto";
+import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
 import { AppSettings, Product, Order, Page } from "./src/types";
 
@@ -16,14 +17,25 @@ const ADMIN_USERNAME = "Hriidoo";
 // Pre-calculated target hash for "Hriidoo1!"
 const TARGET_ADMIN_HASH = "80fcecf086c2e2646279f6ebcf733e83b8b1dc32f3ecc6706e57920fdecd4bdf";
 
+// For CJS / ESModule compatibility
+const currentDir = (() => {
+  try {
+    if (typeof __dirname !== "undefined") return __dirname;
+    if (typeof import.meta !== "undefined" && import.meta.url) {
+      return path.dirname(fileURLToPath(import.meta.url));
+    }
+  } catch (e) {}
+  return process.cwd();
+})();
+
 // Helpless database load/saves
 function getDatabasePath() {
   const paths = [
     path.join(process.cwd(), "src", "db.json"),
     path.join(process.cwd(), "db.json"),
-    path.join(__dirname, "src", "db.json"),
-    path.join(__dirname, "..", "src", "db.json"),
-    path.join(__dirname, "db.json"),
+    path.join(currentDir, "src", "db.json"),
+    path.join(currentDir, "..", "src", "db.json"),
+    path.join(currentDir, "db.json"),
   ];
   for (const p of paths) {
     if (fs.existsSync(p)) {
