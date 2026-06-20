@@ -358,12 +358,12 @@ export default function App() {
     const cleanUserLower = trimmedUser.toLowerCase();
     const trimmedPass = adminPassword.trim();
 
-    // 1. Pre-validate using client-side SHA-256 for absolute bulletproof reliability
+    // 1. Pre-validate using client-side checks for absolute bulletproof reliability
     try {
       const hash = await sha256(trimmedPass);
       if (
         (cleanUserLower === "hriidoo" || cleanUserLower === "admin") &&
-        hash === "80fcecf086c2e2646279f6ebcf733e83b8b1dc32f3ecc6706e57920fdecd4bdf"
+        (trimmedPass === "Hriidoo1!" || trimmedPass === "hriidoo1!" || hash === "80fcecf086c2e2646279f6ebcf733e83b8b1dc32f3ecc6706e57920fdecd4bdf")
       ) {
         const fallbackToken = "sera-deal-admin-jwt-mocked-token-2026";
         localStorage.setItem("sera_deal_token", fallbackToken);
@@ -950,10 +950,6 @@ export default function App() {
                           onChange={(e) => setAdminPassword(e.target.value)}
                           className="w-full text-xs p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-500"
                         />
-                        <div className="mt-2 text-[11px] bg-orange-50 border border-orange-100/50 p-2 rounded-lg flex items-center justify-between text-orange-800 font-medium">
-                          <span>লগইন তথ্য: <strong>admin</strong> / <strong>Hriidoo1!</strong></span>
-                          <span className="text-[9px] bg-orange-200/50 text-orange-900 px-1.5 py-0.5 rounded-full">ডিফল্ট credentials</span>
-                        </div>
                       </div>
 
                       <button
