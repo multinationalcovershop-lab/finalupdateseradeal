@@ -7,7 +7,6 @@ import { AppSettings, Product, Order, Page } from "./src/types";
 
 const app = express();
 const PORT = 3000;
-const DB_PATH = path.join(process.cwd(), "src", "db.json");
 
 // Dynamic parser for uploads and API requests
 app.use(express.json({ limit: "25mb" }));
@@ -18,13 +17,33 @@ const ADMIN_USERNAME = "Hriidoo";
 const TARGET_ADMIN_HASH = "80fcecf086c2e2646279f6ebcf733e83b8b1dc32f3ecc6706e57920fdecd4bdf";
 
 // Helpless database load/saves
+function getDatabasePath() {
+  const paths = [
+    path.join(process.cwd(), "src", "db.json"),
+    path.join(process.cwd(), "db.json"),
+    path.join(__dirname, "src", "db.json"),
+    path.join(__dirname, "..", "src", "db.json"),
+    path.join(__dirname, "db.json"),
+  ];
+  for (const p of paths) {
+    if (fs.existsSync(p)) {
+      return p;
+    }
+  }
+  // Fallback default
+  return path.join(process.cwd(), "src", "db.json");
+}
+
+const DB_PATH = getDatabasePath();
+
 function readDatabase() {
   try {
-    if (!fs.existsSync(DB_PATH)) {
+    const activePath = getDatabasePath();
+    if (!fs.existsSync(activePath)) {
       // Emergency default base creation
       return { settings: {}, products: [], pages: [], orders: [] };
     }
-    const data = fs.readFileSync(DB_PATH, "utf-8");
+    const data = fs.readFileSync(activePath, "utf-8");
     return JSON.parse(data);
   } catch (err) {
     console.error("Error reading database file:", err);
@@ -34,7 +53,8 @@ function readDatabase() {
 
 function writeDatabase(data: any) {
   try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), "utf-8");
+    const activePath = getDatabasePath();
+    fs.writeFileSync(activePath, JSON.stringify(data, null, 2), "utf-8");
     return true;
   } catch (err) {
     console.error("Error writing database file:", err);
@@ -59,7 +79,7 @@ app.post("/api/auth/login", (req, res) => {
   const suppliedHash = crypto.createHash("sha256").update(cleanPassword).digest("hex");
 
   if (
-    cleanUsername === "hriidoo" &&
+    (cleanUsername === "hriidoo" || cleanUsername === "admin") &&
     suppliedHash === TARGET_ADMIN_HASH
   ) {
     return res.json({ success: true, token: "sera-deal-admin-jwt-mocked-token-2026" });
