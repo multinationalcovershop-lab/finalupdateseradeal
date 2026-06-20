@@ -698,8 +698,8 @@ export default function App() {
               
               {/* Dynamic Slideshow Promo Carousel */}
               <AppSlider
-                sliders={settings.sliders}
-                banners={settings.banners}
+                sliders={settings?.sliders || []}
+                banners={settings?.banners || []}
                 onSliderClick={(link) => {
                   if (link.startsWith("/#")) {
                     setSelectedCategory(link.replace("/#", ""));
@@ -950,6 +950,10 @@ export default function App() {
                           onChange={(e) => setAdminPassword(e.target.value)}
                           className="w-full text-xs p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-500"
                         />
+                        <div className="mt-2 text-[11px] bg-orange-50 border border-orange-100/50 p-2 rounded-lg flex items-center justify-between text-orange-800 font-medium">
+                          <span>লগইন তথ্য: <strong>admin</strong> / <strong>Hriidoo1!</strong></span>
+                          <span className="text-[9px] bg-orange-200/50 text-orange-900 px-1.5 py-0.5 rounded-full">ডিফল্ট credentials</span>
+                        </div>
                       </div>
 
                       <button
@@ -1155,7 +1159,7 @@ export default function App() {
       <footer className="bg-white/70 backdrop-blur-md border-t border-white/40 border-slate-200/55 py-8 mt-12 relative z-10 text-slate-600 text-xs text-center">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-left">
           <div>
-            <h4 className="font-extrabold text-orange-600 text-sm mb-1">{settings.companyName}</h4>
+            <h4 className="font-extrabold text-orange-600 text-sm mb-1">{settings?.companyName || "Sera Deal BD"}</h4>
             <p className="text-[11px] text-slate-500 leading-relaxed max-w-xs">
               Bangladesh's premium online experience for authentic electronics, exquisite fashion clothing, and organic groceries.
             </p>
@@ -1163,7 +1167,7 @@ export default function App() {
           
           {/* Sub-footer quick connections */}
           <div className="flex gap-4 sm:gap-6 flex-wrap justify-start">
-            {settings.footerLinks.map((link) => (
+            {(settings?.footerLinks || []).map((link) => (
               <button
                 key={link.id}
                 onClick={() => {
@@ -1183,9 +1187,9 @@ export default function App() {
           </div>
 
           <div className="md:text-right text-left text-[11px]">
-            <p className="font-medium text-slate-400">© 2026 {settings.companyName}. All Rights Reserved.</p>
+            <p className="font-medium text-slate-400">© 2026 {settings?.companyName || "Sera Deal BD"}. All Rights Reserved.</p>
             <span className="inline-flex gap-1.5 items-center mt-1 text-slate-400">
-              Helpline: {settings.contactPhone}
+              Helpline: {settings?.contactPhone || "01305962300"}
             </span>
           </div>
         </div>

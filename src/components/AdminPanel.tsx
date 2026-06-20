@@ -61,13 +61,13 @@ export default function AdminPanel({
   const [pIsFlash, setPIsFlash] = useState(false);
 
   // Settings / Logo Form State
-  const [compName, setCompName] = useState(settings.companyName);
-  const [lgUrl, setLgUrl] = useState(settings.logoUrl);
-  const [lgText, setLgText] = useState(settings.logoText);
-  const [phn, setPhn] = useState(settings.contactPhone);
-  const [eml, setEml] = useState(settings.contactEmail);
-  const [bNo, setBNo] = useState(settings.bkashNumber);
-  const [nNo, setNNo] = useState(settings.nagadNumber);
+  const [compName, setCompName] = useState(settings?.companyName || "");
+  const [lgUrl, setLgUrl] = useState(settings?.logoUrl || "");
+  const [lgText, setLgText] = useState(settings?.logoText || "");
+  const [phn, setPhn] = useState(settings?.contactPhone || "");
+  const [eml, setEml] = useState(settings?.contactEmail || "");
+  const [bNo, setBNo] = useState(settings?.bkashNumber || "");
+  const [nNo, setNNo] = useState(settings?.nagadNumber || "");
 
   const [loadedSettings, setLoadedSettings] = useState<AppSettings | null>(null);
 

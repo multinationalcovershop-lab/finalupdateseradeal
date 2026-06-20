@@ -27,16 +27,24 @@ export default function Header({
 }: HeaderProps) {
   const [menuOpen, setMenuOpen] = React.useState(false);
 
+  // Safe destructuring of properties with robust fallback values to completely prevent any undefined/null type crashes
+  const companyName = settings?.companyName || "Sera Deal BD";
+  const contactPhone = settings?.contactPhone || "01305962300";
+  const contactEmail = settings?.contactEmail || "info@seradealbd.com";
+  const logoUrl = settings?.logoUrl || "";
+  const categories = settings?.categories || [];
+  const headerLinks = settings?.headerLinks || [];
+
   return (
     <header className="sticky top-0 z-40 bg-white shadow-md text-gray-800">
       {/* Top Notification Bar */}
       <div className="bg-orange-600 text-white text-xs py-1 px-4 hidden md:flex justify-between items-center">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1">
-            <Phone size={12} /> Helpline: {settings.contactPhone}
+            <Phone size={12} /> Helpline: {contactPhone}
           </span>
           <span className="flex items-center gap-1">
-            <Mail size={12} /> Email: {settings.contactEmail}
+            <Mail size={12} /> Email: {contactEmail}
           </span>
         </div>
         <div className="flex items-center gap-4 font-medium">
@@ -68,10 +76,10 @@ export default function Header({
             }}
             className="cursor-pointer flex items-center gap-2"
           >
-            {settings.logoUrl ? (
+            {logoUrl ? (
               <img 
-                src={settings.logoUrl} 
-                alt={settings.companyName} 
+                src={logoUrl} 
+                alt={companyName} 
                 className="h-10 max-w-[150px] object-contain rounded" 
                 referrerPolicy="no-referrer"
               />
@@ -81,8 +89,8 @@ export default function Header({
               </div>
             )}
             <span className="font-extrabold text-xl md:text-2xl tracking-tight text-gray-900">
-              <span className="text-orange-600">{settings.companyName.split(" ")[0]}</span>
-              <span className="text-gray-800"> {settings.companyName.split(" ").slice(1).join(" ")}</span>
+              <span className="text-orange-600">{(companyName || "").split(" ")[0]}</span>
+              <span className="text-gray-800"> { (companyName || "").split(" ").slice(1).join(" ") }</span>
             </span>
           </div>
         </div>
@@ -152,7 +160,7 @@ export default function Header({
             >
               All Categories
             </button>
-            {settings.categories.map((cat) => (
+            {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => {
@@ -171,7 +179,7 @@ export default function Header({
           </div>
 
           <div className="flex items-center gap-4 border-l pl-4 border-gray-200">
-            {settings.headerLinks.map((link) => (
+            {headerLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => {
@@ -234,7 +242,7 @@ export default function Header({
               >
                 All Products
               </button>
-              {settings.categories.map((cat) => (
+              {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => {
@@ -253,7 +261,7 @@ export default function Header({
 
             <div className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Useful Links</div>
             <div className="flex flex-col gap-2">
-              {settings.headerLinks.map((link) => (
+              {headerLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => {
@@ -282,7 +290,7 @@ export default function Header({
                   Admin Panel Access
                 </button>
                 <div className="text-[10px] text-gray-400 text-center mt-4">
-                  Helpline: {settings.contactPhone}
+                  Helpline: {contactPhone}
                 </div>
               </div>
             </div>
