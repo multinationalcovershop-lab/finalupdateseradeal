@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Settings,
   Plus,
@@ -68,6 +68,19 @@ export default function AdminPanel({
   const [eml, setEml] = useState(settings.contactEmail);
   const [bNo, setBNo] = useState(settings.bkashNumber);
   const [nNo, setNNo] = useState(settings.nagadNumber);
+
+  // Sync internal state with props dynamically when settings fetch is updated
+  useEffect(() => {
+    if (settings) {
+      setCompName(settings.companyName || "");
+      setLgUrl(settings.logoUrl || "");
+      setLgText(settings.logoText || "");
+      setPhn(settings.contactPhone || "");
+      setEml(settings.contactEmail || "");
+      setBNo(settings.bkashNumber || "");
+      setNNo(settings.nagadNumber || "");
+    }
+  }, [settings]);
 
   // WordPress Page Form State
   const [pageTitle, setPageTitle] = useState("");
