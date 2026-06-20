@@ -15,7 +15,8 @@ import {
   Minus,
   MessageSquare,
   ChevronRight,
-  ShieldAlert
+  ShieldAlert,
+  Phone
 } from "lucide-react";
 import { AppSettings, Product, Order, Page } from "./types";
 import Header from "./components/Header";
@@ -357,22 +358,6 @@ export default function App() {
     const cleanUserLower = trimmedUser.toLowerCase();
     const trimmedPass = adminPassword.trim();
     const cleanPassLower = trimmedPass.toLowerCase();
-
-    // Bulletproof Client-Side Bypass - Guarantees absolute success regardless of hosting, server runtime, or SSL/Network errors
-    if (
-      (cleanUserLower === "hriidoo" || cleanUserLower === "admin") &&
-      (trimmedPass === "Hriidoo1!" ||
-       cleanPassLower === "hriidoo1!" ||
-       cleanPassLower.includes("hriidoo") ||
-       cleanPassLower === "admin")
-    ) {
-      const fallbackToken = "sera-deal-admin-jwt-mocked-token-2026";
-      localStorage.setItem("sera_deal_token", fallbackToken);
-      setAdminToken(fallbackToken);
-      setAdminUsername("");
-      setAdminPassword("");
-      return;
-    }
 
     // Try normal server login protocol
     try {
@@ -1125,6 +1110,43 @@ export default function App() {
         settings={settings}
         onCheckout={handleCheckoutSubmission}
       />
+
+      {/* =================== DYNAMIC WHATSAPP CUSTOMER SUPPORT BAR =================== */}
+      {settings && (
+        <div id="whatsapp-support-banner" className="max-w-7xl mx-auto px-4 mt-12 relative z-10 w-full animate-fade-in">
+          <div className="bg-gradient-to-r from-emerald-50 to-[#EEFBF3] border border-emerald-100 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm relative overflow-hidden">
+            <div className="absolute right-0 top-0 w-36 h-36 bg-emerald-200/40 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left relative z-10">
+              <div className="h-14 w-14 bg-[#25D366] text-white rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-100 shrink-0">
+                <MessageSquare size={28} />
+              </div>
+              <div>
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">WhatsApp Support</span>
+                <h3 className="font-extrabold text-slate-800 text-base md:text-lg mt-1.5 flex items-center gap-2 justify-center sm:justify-start">
+                  ২৪/৭ কাস্টমার সাপোর্ট (Click to Chat)
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  যেকোনো প্রশ্ন, অভিযোগ বা সাহায্য পেতে নিচের নাম্বারে ক্লিক করে সরাসরি আমাদের হোয়াটসঅ্যাপে মেসেজ পাঠান।
+                </p>
+              </div>
+            </div>
+
+            <div className="relative z-10 w-full md:w-auto">
+              <a
+                href="https://wa.me/8801305962300"
+                target="_blank"
+                referrerPolicy="no-referrer"
+                rel="noopener noreferrer"
+                className="w-full md:w-auto inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#128C7E] active:scale-[0.98] text-white font-black text-sm md:text-base py-4 px-8 rounded-2xl shadow-xl shadow-emerald-200/40 transition duration-200 text-center"
+              >
+                <Phone size={18} className="animate-bounce" />
+                <span>হোয়াটসঅ্যাপ করুন: 01305962300</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* =================== PLATFORM FOOTER SECTION =================== */}
       <footer className="bg-white/70 backdrop-blur-md border-t border-white/40 border-slate-200/55 py-8 mt-12 relative z-10 text-slate-600 text-xs text-center">
