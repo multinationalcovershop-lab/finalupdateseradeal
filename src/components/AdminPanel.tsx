@@ -103,6 +103,27 @@ export default function AdminPanel({
     setTimeout(() => setNotification(""), 3500);
   };
 
+  const handleLogoFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        triggerNotification("Logo file must be under 2MB!");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === "string") {
+          setLgUrl(reader.result);
+          triggerNotification("লোগো ফাইলটি সফলভাবে আপলোড হয়েছে ও সেট হয়েছে!");
+        }
+      };
+      reader.onerror = () => {
+        triggerNotification("লোগো ফাইলটি পড়তে সমস্যা হয়েছে।");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleProductSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const categoriesArray = pCategories.split(",").map((c) => c.trim()).filter(Boolean);
@@ -873,15 +894,129 @@ export default function AdminPanel({
                   />
                 </div>
 
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">Site Logo URL (or empty for Default letter logo)</label>
-                  <input
-                    type="text"
-                    placeholder="https://..."
-                    value={lgUrl}
-                    onChange={(e) => setLgUrl(e.target.value)}
-                    className="w-full text-xs p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none"
-                  />
+                {/* New Beautiful Logo Upload and Selection Option */}
+                <div className="md:col-span-2 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+                  <h3 className="text-xs font-bold text-gray-800 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                    <Image size={14} className="text-orange-500" />
+                    ওয়েবসাইট লোগো পরিবর্তন করুন (Logo Customization Control)
+                  </h3>
+                  
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                    {/* Column 1: Live Preview */}
+                    <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 flex flex-col items-center justify-center min-h-[160px] text-center">
+                      <span className="text-[10px] uppercase font-bold text-gray-400 mb-2 tracking-wider">রিয়েল-টাইম প্রিভিউ (Live Preview)</span>
+                      <div className="bg-white p-3 rounded-xl border border-gray-100 shadow-sm flex items-center justify-center max-w-full h-16 w-full mb-3 overflow-hidden">
+                        {lgUrl ? (
+                          <img 
+                            src={lgUrl} 
+                            alt="Logo brand preview" 
+                            className="max-h-12 max-w-full object-contain" 
+                            referrerPolicy="no-referrer"
+                          />
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded bg-gradient-to-tr from-amber-500 to-orange-600 text-white flex items-center justify-center font-extrabold text-sm shadow-sm ring-2 ring-white">
+                              {compName ? compName.charAt(0) : "S"}
+                            </div>
+                            <span className="font-extrabold text-sm tracking-tight text-gray-800">
+                              <span className="text-orange-600">{compName ? compName.split(" ")[0] : "Sera"}</span>
+                              <span className="text-gray-800"> {compName ? compName.split(" ").slice(1).join(" ") : "Deal"}</span>
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      <p className="text-[10px] text-gray-500 leading-snug">আপনার লোগোটি হেডার বা অন্য কোথাও ঠিক কেমন লাগবে তা উপরে সরাসরি দেখা যাচ্ছে।</p>
+                    </div>
+
+                    {/* Column 2: Upload File & Paste URL inputs */}
+                    <div className="lg:col-span-2 flex flex-col gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* File Upload Zone */}
+                        <div className="border-2 border-dashed border-gray-200 hover:border-orange-300 rounded-xl p-4 flex flex-col items-center justify-center text-center bg-white cursor-pointer transition group relative min-h-[90px]">
+                          <input 
+                            type="file"
+                            accept="image/*"
+                            onChange={handleLogoFileChange}
+                            className="absolute inset-0 opacity-0 cursor-pointer z-10"
+                          />
+                          <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 mb-1 group-hover:scale-105 transition duration-200">
+                            <Plus size={16} />
+                          </div>
+                          <span className="text-xs font-bold text-gray-700">ডিভাইস থেকে লোগো আপলোড দিন</span>
+                          <span className="text-[10px] text-gray-400">PNG, JPG, SVG (Max. 2MB)</span>
+                        </div>
+
+                        {/* Paste image link Directly */}
+                        <div className="flex flex-col justify-center">
+                          <label className="block text-xs font-bold text-gray-700 mb-1">অথবা ইন্টারনেট লোগো লিংক বসান (URL)</label>
+                          <input
+                            type="text"
+                            placeholder="https://example.com/logo.png"
+                            value={lgUrl}
+                            onChange={(e) => setLgUrl(e.target.value)}
+                            className="w-full text-xs p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-200 text-gray-800"
+                          />
+                          <p className="text-[10px] text-gray-400 mt-1">সবচেয়ে নির্ভরযোগ্য ও ফাস্ট স্পিডের জন্য ফাইল আপলোড করা ভালো।</p>
+                        </div>
+                      </div>
+
+                      {/* Default presets row */}
+                      <div>
+                        <span className="block text-[10px] font-bold text-gray-400 mb-1.5 uppercase tracking-wider">রকমারি লোগো প্রিসেটস (Select Premium Theme Presets)</span>
+                        <div className="flex flex-wrap gap-2">
+                          {[
+                            { 
+                              name: "Sera Deal Classic Orange", 
+                              url: "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?auto=format&fit=crop&w=300&h=100&q=80" 
+                            },
+                            { 
+                              name: "Modern E-Commerce Box", 
+                              url: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=300&h=100&q=80" 
+                            },
+                            { 
+                              name: "Fashion Hub Dark Pink", 
+                              url: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=300&h=100&q=80" 
+                            },
+                            { 
+                              name: "Organic Green", 
+                              url: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=300&h=100&q=80" 
+                            }
+                          ].map((preset, idx) => (
+                            <button
+                              type="button"
+                              key={idx}
+                              onClick={() => {
+                                setLgUrl(preset.url);
+                                triggerNotification(`প্রিসেট "${preset.name}" সেট করা হয়েছে!`);
+                              }}
+                              className={`flex items-center gap-1.5 text-[11px] font-semibold bg-gray-50 hover:bg-orange-50 hover:text-orange-600 px-3 py-1.5 rounded-lg border transition ${
+                                lgUrl === preset.url ? "border-orange-500 text-orange-600 bg-orange-50/50" : "border-gray-200"
+                              }`}
+                            >
+                              <div className="w-4 h-4 rounded-full overflow-hidden">
+                                <img src={preset.url} alt="" className="w-full h-full object-cover" />
+                              </div>
+                              {preset.name}
+                            </button>
+                          ))}
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setLgUrl("");
+                              triggerNotification("ডিফল্ট সুন্দর টেক্সট লোগো পুনরায় সেট করা হয়েছে!");
+                            }}
+                            className={`text-[11px] font-semibold bg-gray-50 hover:bg-gray-100 px-3 py-1.5 rounded-lg border border-gray-200 text-gray-600 transition ${
+                              lgUrl === "" ? "border-slate-800 bg-slate-50 text-slate-900" : ""
+                            }`}
+                          >
+                            ❌ Reset to Simple Text Logo
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
                 </div>
 
                 {/* Helpline info */}
